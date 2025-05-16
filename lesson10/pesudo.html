@@ -1,23 +1,89 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <link href="style.css" rel="stylesheet" type="type/css" />
-    </head>
-    <body>
-        <h1>
-            Welcome to Space Explorer's Club
-        </h1>
-        <ul>
-            <li>Moon missions</li>
-            <li>Mars rover</li>
-            <li>International space station</li>
-            <li>Telescope And Stars</li>
-            <li>Black Holes and White hole mysteries</li>
-        </ul>
-        <p>Space exploration has always captivated human Imagination.It's a journey to the UNKNOWN...</p>
-        <p>From the Moon to distant galaxies,we continue to explore the vastness of space.</p>
-        <a href="#">Join us on our MISSION</a>
-        <a href="#">Latest Space News</a>
-        <a href="#">Gallery of the UNIVERSE</a>
-    </body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Space Topics</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: black;
+            color: #c9d1d9;
+        }
+
+        h1 {
+            color: blue;
+        }
+
+        a {
+            display: inline-block;
+            margin: 5px 10px;
+            color: #8b949e;
+            text-decoration: none;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        a:hover {
+            color: cyan;
+            text-shadow: 0 0 5px cyan, 0 0 10px cyan;
+        }
+
+        ul>li {
+            font-weight: bold;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        h1+p {
+            background-color: #161b22;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        ul li:hover {
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff;
+        }
+
+        ul li:nth-child(2) {
+            background-color: #21262d;
+        }
+
+        p:not(:first-of-type) {
+            text-decoration: underline;
+        }
+
+        ul li::before {
+            content: "🚀 ";
+        }
+
+        a::after {
+            content: " 🌌";
+        }
+
+        p::first-letter {
+            font-size: 200%;
+            color: #ff7b72;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Space Exploration</h1>
+
+    <p>Space exploration has always captivated human Imagination. It's a journey to the UNKNOWN...</p>
+    <p>From the Moon to distant galaxies, we continue to explore the vastness of space.</p>
+
+    <a href="#">Join us on our MISSION</a>
+    <a href="#">Latest Space News</a>
+    <a href="#">Gallery of the UNIVERSE</a>
+
+    <ul>
+        <li>Moon missions</li>
+        <li>Mars rover</li>
+        <li>International space station</li>
+        <li>Telescope And Stars</li>
+        <li>Black Holes and White hole mysteries</li>
+    </ul>
+</body>
+
 </html>
