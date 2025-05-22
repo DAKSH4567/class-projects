@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>3D Car Game with Physics</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.148.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js"></script>
+    <script>
+        // THREE.js setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Lighting
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(0, 10, 10);
+        scene.add(light);
+        scene.add(new THREE.AmbientLight(0x404040));
+
+        // Cannon-es physics world
+        const world = new CANNON.World();
+        world.gravity.set(0, -9.82, 0);
+
+        // Ground
+        const groundBody = new CANNON.Body({
+            mass: 0,
+            shape: new CANNON.Plane(),
+            material: new CANNON.Material("ground")
+        });
+        groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
+        world.addBody(groundBody);
+
+        const groundGeometry = new THREE.PlaneGeometry(100, 100);
+        const groundMaterial = new THREE.MeshStandardMaterial({ color: 0x444444 });
+        const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
+        groundMesh.rotation.x = -Math.PI / 2;
+        scene.add(groundMesh);
+
+        // Car body
+        const carBodyShape = new CANNON.Box(new CANNON.Vec3(1, 0.5, 2));
+        const carBody = new CANNON.Body({
+            mass: 150,
+            position: new CANNON.Vec3(0, 1, 0),
+            shape: carBodyShape
+        });
+        world.addBody(carBody);
+
+        const carMesh = new THREE.Mesh(
+            new THREE.BoxGeometry(2, 1, 4),
+            new THREE.MeshStandardMaterial({ color: 0xff0000 })
+        );
+        scene.add(carMesh);
+
+        // Input controls
+        const keys = { ArrowLeft: false, ArrowRight: false, ArrowUp: false, ArrowDown: false };
+        window.addEventListener('keydown', e => { if (e.key in keys) keys[e.key] = true; });
+        window.addEventListener('keyup', e => { if (e.key in keys) keys[e.key] = false; });
+
+        camera.position.set(0, 5, 10);
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Apply controls
+            const force = 1000;
+            if (keys.ArrowUp) carBody.applyForce(new CANNON.Vec3(0, 0, -force), carBody.position);
+            if (keys.ArrowDown) carBody.applyForce(new CANNON.Vec3(0, 0, force), carBody.position);
+            if (keys.ArrowLeft) carBody.angularVelocity.y += 0.05;
+            if (keys.ArrowRight) carBody.angularVelocity.y -= 0.05;
+
+            world.step(1 / 60);
+
+            // Sync mesh with physics
+            carMesh.position.copy(carBody.position);
+            carMesh.quaternion.copy(carBody.quaternion);
+
+            camera.lookAt(carMesh.position);
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+
+</html>
