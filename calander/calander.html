@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Display Date and Day</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #Mycalander {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Current Date and Day</h1>
+    <div id="Mycalander"></div>
+
+    <script>
+        // Function to display the current date and day
+        function displayDateAndDay() {
+            var todayDate = new Date();
+
+            // Get date, month, year
+            var date = todayDate.getDate();
+            var month = todayDate.getMonth() + 1; // Month is 0-indexed
+            var year = todayDate.getFullYear();
+
+            // Get day of the week
+            var dayNumber = todayDate.getDay();
+            var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            var today = days[dayNumber];
+
+            // Combine date and day
+            var calander = "Date: " + date + "/" + month + "/" + year + " Day: " + today;
+
+            // Display in HTML
+            document.getElementById("Mycalander").innerText = calander;
+        }
+
+        // Invoke the function when page loads
+        window.onload = displayDateAndDay;
+    </script>
+
+</body>
+
+</html>
