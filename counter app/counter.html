@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Counter Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        #display {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Counter</h1>
+    <div id="display">0</div>
+    <button id="button-increment">Increase button</button>
+    <button id="button-decrement">Decrease button</button>
+    <button id="button-reset">Reset button</button>
+
+    <script>
+        // a. Create a variable and assign value as 0
+        var value = 0;
+
+        // b. Get button instances
+        var button_increment = document.getElementById('button-increment');
+        var button_decrement = document.getElementById('button-decrement');
+        var button_reset = document.getElementById('button-reset');
+
+        // c. Functions for each button
+        function updateDisplay() {
+            document.getElementById('display').innerText = value;
+        }
+
+        button_increment.onclick = function () {
+            value++;
+            updateDisplay();
+        };
+
+        button_decrement.onclick = function () {
+            value--;
+            updateDisplay();
+        };
+
+        button_reset.onclick = function () {
+            value = 0;
+            updateDisplay();
+        };
+
+        // Initial display
+        updateDisplay();
+    </script>
+
+</body>
+
+</html>
